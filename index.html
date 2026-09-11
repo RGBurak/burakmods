@@ -699,7 +699,6 @@
         }
     </script>
     // İndirme butonunu otomatik canlandıran güvenli ek kod
-const eskiTrigger = typeof triggerDownload === 'function' ? triggerDownload : null;
 triggerDownload = function() {
     if (typeof currentMod !== 'undefined' && currentMod.name) {
         let modSlug = currentMod.name.toLowerCase().trim().replace(/ /g, '-').replace(/[^a-z0-9-]/g, '');
@@ -707,9 +706,10 @@ triggerDownload = function() {
         if (modSlug === "fabric-api") modSlug = "fabric-api";
         if (modSlug === "cloth-config-api") modSlug = "cloth-config";
         
-        window.open("https://modrinth.com" + modSlug, "_blank");
+        // Tarayıcı engelini aşmak için doğrudan o anki sayfayı Modrinth'e uçurur
+        window.location.href = "https://modrinth.com" + modSlug;
     }
-    if (eskiTrigger) eskiTrigger();
+    if (typeof closeModal === 'function') closeModal();
 };
     // İndirme butonunu otomatik canlandıran güvenli ek kod
 const eskiTrigger = typeof triggerDownload === 'function' ? triggerDownload : null;

@@ -675,21 +675,18 @@
             document.getElementById('downloadModal').style.display = "none";
         }
 
-        function triggerDownload() {
-            let ver = document.getElementById('versionSelect').value;
-            let loader = document.getElementById('loaderSelect').value;
-            let bundleChecked = document.getElementById('bundleCheck').checked;
-            let reqMod = modDependencies[currentMod.name];
-            
-            let depBoxActive = document.getElementById('dependencyBox').classList.contains('active');
-
-            if (depBoxActive && bundleChecked && reqMod) {
-                alert("📦 Toplu İndirme Başarılı!\n\n• " + currentMod.name + " (" + ver + " - " + loader + ")\n• Ön Koşul Modu: " + reqMod + "\n\nHer iki mod da zip paketi olarak indirildi!");
-            } else {
-                alert(currentMod.name + " (" + ver + " - " + loader + ") başarıyla indirildi!");
-            }
-            closeModal();
-        }
+function triggerDownload() {
+    if (typeof currentMod !== 'undefined' && currentMod.name) {
+        let modSlug = currentMod.name.toLowerCase().trim().replace(/ /g, '-').replace(/[^a-z0-9-]/g, '');
+        if (modSlug === "jei") modSlug = "jei";
+        if (modSlug === "fabric-api") modSlug = "fabric-api";
+        if (modSlug === "cloth-config-api") modSlug = "cloth-config";
+        
+        // Ekrana hiçbir uyarı getirmeden doğrudan Modrinth'e yönlendirir
+        window.location.href = "https://modrinth.com" + modSlug;
+    }
+    if (typeof closeModal === 'function') closeModal();
+}        
 
         window.onclick = function(event) {
             let modal = document.getElementById('downloadModal');

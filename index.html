@@ -698,5 +698,19 @@
             }
         }
     </script>
+    // İndirme butonunu otomatik canlandıran güvenli ek kod
+const eskiTrigger = typeof triggerDownload === 'function' ? triggerDownload : null;
+triggerDownload = function() {
+    if (typeof currentMod !== 'undefined' && currentMod.name) {
+        let modSlug = currentMod.name.toLowerCase().trim().replace(/ /g, '-').replace(/[^a-z0-9-]/g, '');
+        if (modSlug === "jei") modSlug = "jei";
+        if (modSlug === "fabric-api") modSlug = "fabric-api";
+        if (modSlug === "cloth-config-api") modSlug = "cloth-config";
+        
+        window.open("https://modrinth.com" + modSlug, "_blank");
+    }
+    if (eskiTrigger) eskiTrigger();
+};
+</script>
 </body>
 </html>
